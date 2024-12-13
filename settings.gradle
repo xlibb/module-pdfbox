@@ -20,6 +20,9 @@ pluginManagement {
     plugins {
         id "net.researchgate.release" version "${releasePluginVersion}"
         id "io.ballerina.plugin" version "${ballerinaGradlePluginVersion}"
+        id "com.github.spotbugs-base" version "${spotbugsPluginVersion}"
+        id "com.github.johnrengelman.shadow" version "${shadowJarPluginVersion}"
+        id "de.undercouch.download" version "${downloadPluginVersion}"
     }
 
     repositories {
@@ -40,9 +43,15 @@ plugins {
 
 rootProject.name = 'module-pdfbox'
 
+include ':checkstyle'
 include ':pdfbox-ballerina'
+include ':pdfbox-native'
+include ':pdfbox-examples'
 
+project(':checkstyle').projectDir = file("build-config${File.separator}checkstyle")
 project(':pdfbox-ballerina').projectDir = file("ballerina")
+project(':pdfbox-native').projectDir = file("native")
+project(':pdfbox-examples').projectDir = file('examples')
 
 gradleEnterprise {
     buildScan {
