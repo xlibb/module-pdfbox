@@ -11,6 +11,55 @@ distribution-version = "2201.10.2"
 org = "ballerina"
 name = "jballerina.java"
 version = "0.0.0"
+modules = [
+	{org = "ballerina", packageName = "jballerina.java", moduleName = "jballerina.java"}
+]
+
+[[package]]
+org = "ballerina"
+name = "jballerina.java.arrays"
+version = "1.4.0"
+dependencies = [
+	{org = "ballerina", name = "jballerina.java"}
+]
+modules = [
+	{org = "ballerina", packageName = "jballerina.java.arrays", moduleName = "jballerina.java.arrays"}
+]
+
+[[package]]
+org = "ballerina"
+name = "lang.__internal"
+version = "0.0.0"
+scope = "testOnly"
+dependencies = [
+	{org = "ballerina", name = "jballerina.java"},
+	{org = "ballerina", name = "lang.object"}
+]
+
+[[package]]
+org = "ballerina"
+name = "lang.array"
+version = "0.0.0"
+scope = "testOnly"
+dependencies = [
+	{org = "ballerina", name = "jballerina.java"},
+	{org = "ballerina", name = "lang.__internal"}
+]
+
+[[package]]
+org = "ballerina"
+name = "lang.error"
+version = "0.0.0"
+scope = "testOnly"
+dependencies = [
+	{org = "ballerina", name = "jballerina.java"}
+]
+
+[[package]]
+org = "ballerina"
+name = "lang.object"
+version = "0.0.0"
+scope = "testOnly"
 
 [[package]]
 org = "ballerina"
@@ -18,6 +67,20 @@ name = "observe"
 version = "1.3.0"
 dependencies = [
 	{org = "ballerina", name = "jballerina.java"}
+]
+
+[[package]]
+org = "ballerina"
+name = "test"
+version = "0.0.0"
+scope = "testOnly"
+dependencies = [
+	{org = "ballerina", name = "jballerina.java"},
+	{org = "ballerina", name = "lang.array"},
+	{org = "ballerina", name = "lang.error"}
+]
+modules = [
+	{org = "ballerina", packageName = "test", moduleName = "test"}
 ]
 
 [[package]]
@@ -37,9 +100,37 @@ org = "xlibb"
 name = "pdfbox"
 version = "0.1.0"
 dependencies = [
+	{org = "ballerina", name = "jballerina.java"},
+	{org = "ballerina", name = "jballerina.java.arrays"},
+	{org = "ballerina", name = "test"},
 	{org = "ballerinai", name = "observe"}
 ]
 modules = [
-	{org = "xlibb", packageName = "pdfbox", moduleName = "pdfbox"}
+	{org = "xlibb", packageName = "pdfbox", moduleName = "pdfbox"},
+	{org = "xlibb", packageName = "pdfbox", moduleName = "pdfbox.image"},
+	{org = "xlibb", packageName = "pdfbox", moduleName = "pdfbox.io"},
+	{org = "xlibb", packageName = "pdfbox", moduleName = "pdfbox.java.awt"},
+	{org = "xlibb", packageName = "pdfbox", moduleName = "pdfbox.java.awt.geom"},
+	{org = "xlibb", packageName = "pdfbox", moduleName = "pdfbox.java.lang"},
+	{org = "xlibb", packageName = "pdfbox", moduleName = "pdfbox.java.nio.file"},
+	{org = "xlibb", packageName = "pdfbox", moduleName = "pdfbox.java.util"},
+	{org = "xlibb", packageName = "pdfbox", moduleName = "pdfbox.javax.imageio"},
+	{org = "xlibb", packageName = "pdfbox", moduleName = "pdfbox.javax.imageio.stream"},
+	{org = "xlibb", packageName = "pdfbox", moduleName = "pdfbox.org.apache.fontbox.ttf"},
+	{org = "xlibb", packageName = "pdfbox", moduleName = "pdfbox.org.apache.pdfbox.contentstream"},
+	{org = "xlibb", packageName = "pdfbox", moduleName = "pdfbox.org.apache.pdfbox.contentstream.operator"},
+	{org = "xlibb", packageName = "pdfbox", moduleName = "pdfbox.org.apache.pdfbox.cos"},
+	{org = "xlibb", packageName = "pdfbox", moduleName = "pdfbox.org.apache.pdfbox.io"},
+	{org = "xlibb", packageName = "pdfbox", moduleName = "pdfbox.org.apache.pdfbox.pdmodel.encryption"},
+	{org = "xlibb", packageName = "pdfbox", moduleName = "pdfbox.org.apache.pdfbox.pdmodel.graphics.form"},
+	{org = "xlibb", packageName = "pdfbox", moduleName = "pdfbox.org.apache.pdfbox.pdmodel.graphics.optionalcontent"},
+	{org = "xlibb", packageName = "pdfbox", moduleName = "pdfbox.org.apache.pdfbox.pdmodel.graphics.state"},
+	{org = "xlibb", packageName = "pdfbox", moduleName = "pdfbox.org.apache.pdfbox.pdmodel.interactive.annotation"},
+	{org = "xlibb", packageName = "pdfbox", moduleName = "pdfbox.org.apache.pdfbox.pdmodel.interactive.digitalsignature"},
+	{org = "xlibb", packageName = "pdfbox", moduleName = "pdfbox.org.apache.pdfbox.pdmodel.interactive.documentnavigation.outline"},
+	{org = "xlibb", packageName = "pdfbox", moduleName = "pdfbox.org.apache.pdfbox.rendering"},
+	{org = "xlibb", packageName = "pdfbox", moduleName = "pdfbox.org.apache.pdfbox.util"},
+	{org = "xlibb", packageName = "pdfbox", moduleName = "pdfbox.pdmodel"},
+	{org = "xlibb", packageName = "pdfbox", moduleName = "pdfbox.text"}
 ]
 
