@@ -44,6 +44,4 @@ public function main() returns error? {
 
 The `pdfbox` connector provides practical examples illustrating usage in various scenarios. Explore these [examples](https://github.com/xlibb/module-pdfbox/tree/main/examples/), covering the following use cases:
 
-[//]: # (TODO: Add examples)
-
 1. [PDF-JSON Converter](https://github.com/xlibb/module-pdfbox/tree/main/examples/pdf_json_converter). 

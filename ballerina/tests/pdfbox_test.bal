@@ -18,52 +18,91 @@ import ballerina/file;
 import ballerina/io;
 import ballerina/test;
 
-@test:Config
-function testToImagesFromFile() returns error? {
-    string[] actualValue = check toImagesFromFile(file:getCurrentDir() + "/tests/resources/test.pdf");
-    string[] expectedValue = check io:fileReadLines(file:getCurrentDir() + "/tests/resources/base64.txt");
-    test:assertEquals(actualValue.length(), 1);
-    test:assertEquals(actualValue[0], expectedValue[0]);
+@test:Config {
+    dataProvider: TestCaseProvider
+}
+function testToImagesFromFile(TestCase testCase) returns error? {
+    string[] actualValue = check toImagesFromFile(testCase.path);
+    validateResults(actualValue, testCase.expectedBase64, "testToImagesFromFile");
 }
 
-@test:Config
-function testToImagesFromURL() returns error? {
-    string[] actualValue = check toImagesFromURL("https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf");
-    string[] expectedValue = check io:fileReadLines(file:getCurrentDir() + "/tests/resources/base64.txt");
-    test:assertEquals(actualValue.length(), 1);
-    test:assertEquals(actualValue[0], expectedValue[0]);
+@test:Config {
+    dataProvider: TestCaseProvider
+}
+function testToImagesFromURL(TestCase testCase) returns error? {
+    string[] actualValue = check toImagesFromURL(testCase.url);
+    validateResults(actualValue, testCase.expectedBase64, "testToImagesFromURL");
 }
 
-@test:Config
-function testToImagesFromBytes() returns error? {
-    byte[] bytes = check io:fileReadBytes(file:getCurrentDir() + "/tests/resources/test.pdf");
+@test:Config {
+    dataProvider: TestCaseProvider
+}
+function testToImagesFromSinglePageBytes(TestCase testCase) returns error? {
+    byte[] bytes = check io:fileReadBytes(testCase.path);
     string[] actualValue = check toImagesFromBytes(bytes);
-    string[] expectedValue = check io:fileReadLines(file:getCurrentDir() + "/tests/resources/base64.txt");
-    test:assertEquals(actualValue.length(), 1);
-    test:assertEquals(actualValue[0], expectedValue[0]);
+    validateResults(actualValue, testCase.expectedBase64, "testToImagesFromSinglePageBytes");
 }
 
-@test:Config
-function testToTextFromFile() returns error? {
-    string[] actualValue = check toTextFromFile(file:getCurrentDir() + "/tests/resources/test.pdf");
-    string[] expectedValue = ["Dummy PDF file\r\n"];
-    test:assertEquals(actualValue.length(), 1);
-    test:assertEquals(actualValue[0], expectedValue[0]);
+@test:Config {
+    dataProvider: TestCaseProvider
+}
+function testToTextFromFile(TestCase testCase) returns error? {
+    string[] actualValue = check toTextFromFile(testCase.path);
+    validateResults(actualValue, testCase.expectedText, "testToTextFromFile");
 }
 
-@test:Config
-function testToTextFromURL() returns error? {
-    string[] actualValue = check toTextFromURL("https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf");
-    string[] expectedValue = ["Dummy PDF file\r\n"];
-    test:assertEquals(actualValue.length(), 1);
-    test:assertEquals(actualValue[0], expectedValue[0]);
+@test:Config {
+    dataProvider: TestCaseProvider
+}
+function testToTextFromURL(TestCase testCase) returns error? {
+    string[] actualValue = check toTextFromURL(testCase.url);
+    validateResults(actualValue, testCase.expectedText, "testToTextFromURL");
 }
 
-@test:Config
-function testToTextFromBytes() returns error? {
-    byte[] bytes = check io:fileReadBytes(file:getCurrentDir() + "/tests/resources/test.pdf");
+@test:Config {
+    dataProvider: TestCaseProvider
+}
+function testToTextFromBytes(TestCase testCase) returns error? {
+    byte[] bytes = check io:fileReadBytes(testCase.path);
     string[] actualValue = check toTextFromBytes(bytes);
-    string[] expectedValue = ["Dummy PDF file\r\n"];
-    test:assertEquals(actualValue.length(), 1);
-    test:assertEquals(actualValue[0], expectedValue[0]);
+    validateResults(actualValue, testCase.expectedText, "testToTextFromBytes");
+}
+
+function validateResults(string[] actualValue, string[] expectedValue, string testName) {
+    test:assertEquals(actualValue.length(), expectedValue.length(), msg = testName + ": Mismatch in array length");
+    foreach int i in 0..<expectedValue.length() {
+        test:assertEquals(actualValue[i], expectedValue[i], msg = testName + ": Mismatch in value at index " + i.toString());
+    }
+}
+
+type TestCase record {
+    string path;
+    string url;
+    string[] expectedBase64;
+    string[] expectedText;
+};
+
+function TestCaseProvider() returns TestCase[][]|error {
+    TestCase singlePageTest = {
+        path: file:getCurrentDir() + "/tests/resources/singlePageDoc.pdf",
+        url: "https://ballerina-ipa.choreoapps.dev/test1.pdf",
+        expectedBase64: check io:fileReadLines(file:getCurrentDir() + "/tests/resources/singlePageDocBase64.txt"),
+        expectedText: ["Page 1\r\n"]
+    };
+
+    TestCase multiPageTest = {
+        path: file:getCurrentDir() + "/tests/resources/multiPageDoc.pdf",
+        url: "https://ballerina-ipa.choreoapps.dev/test2.pdf",
+        expectedBase64: check io:fileReadLines(file:getCurrentDir() + "/tests/resources/multiPageDocBase64.txt"),
+        expectedText: ["PAGE 1\r\n", "PAGE 2\r\n"]
+    };
+
+    TestCase docWithImageTest = {
+        path: file:getCurrentDir() + "/tests/resources/docWithImage.pdf",
+        url: "https://ballerina-ipa.choreoapps.dev/test3.pdf",
+        expectedBase64: check io:fileReadLines(file:getCurrentDir() + "/tests/resources/docWithImageBase64.txt"),
+        expectedText: ["Ballerina Lang\r\n"]
+    };
+    
+    return [[singlePageTest], [multiPageTest], [docWithImageTest]];
 }

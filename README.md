@@ -4,7 +4,7 @@ This repository contains the source code of the Ballerina pdfbox library package
 [![Build](https://github.com/xlibb/module-pdfbox/actions/workflows/ci.yml/badge.svg)](https://github.com/xlibb/module-pdfbox/actions/workflows/ci.yml)
 [![Trivy](https://github.com/xlibb/module-pdfbox/actions/workflows/trivy-scan.yml/badge.svg)](https://github.com/xlibb/module-pdfbox/actions/workflows/trivy-scan.yml)
 [![GraalVM Check](https://github.com/xlibb/module-pdfbox/actions/workflows/build-with-bal-test-graalvm.yml/badge.svg)](https://github.com/xlibb/module-pdfbox/actions/workflows/build-with-bal-test-graalvm.yml)
-[![GitHub Last Commit](https://img.shields.io/github/last-commit/xlibb/module-pdfbox.svg)](https://github.com/xlibb/module-pdfbox/commits/master)
+[![GitHub Last Commit](https://img.shields.io/github/last-commit/xlibb/module-pdfbox.svg)](https://github.com/xlibb/module-pdfbox/commits/main)
 [![GitHub Issues](https://img.shields.io/github/issues/ballerina-platform/ballerina-library/module/pdfbox.svg?label=Open%20Issues)](https://github.com/ballerina-platform/ballerina-library/labels/module%pdfbox)
 
 ## Overview
@@ -52,8 +52,6 @@ public function main() returns error? {
 ## Examples
 
 The `pdfbox` connector provides practical examples illustrating usage in various scenarios. Explore these [examples](https://github.com/xlibb/module-pdfbox/tree/main/examples/), covering the following use cases:
-
-[//]: # (TODO: Add examples)
 
 1. [PDF-JSON Converter](https://github.com/xlibb/module-pdfbox/tree/main/examples/pdf_json_converter). 
 

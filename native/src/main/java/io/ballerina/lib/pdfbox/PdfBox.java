@@ -43,7 +43,9 @@ public class PdfBox {
     public static Object toImagesFromFile(BString filePath) {
         try {
             File file = new File(filePath.toString());
-            BString[] base64Images = toImages(PDDocument.load(file));
+            PDDocument document = PDDocument.load(file);
+            BString[] base64Images = toImages(document);
+            document.close();
             return ValueCreator.createArrayValue(base64Images);
         } catch (IOException e) {
             return Utils.getBError("Failed to load document: " + e.getMessage());
@@ -54,7 +56,9 @@ public class PdfBox {
         try {
             URL urlObj = new URL(url.toString());
             InputStream inputStream = urlObj.openStream();
-            BString[] base64Images = toImages(PDDocument.load(inputStream));
+            PDDocument document = PDDocument.load(inputStream);
+            BString[] base64Images = toImages(document);
+            document.close();
             return ValueCreator.createArrayValue(base64Images);
         } catch (IOException e) {
             return Utils.getBError("Failed to load document: " + e.getMessage());
@@ -64,7 +68,9 @@ public class PdfBox {
     public static Object toImagesFromBytes(BArray byteArr) {
         try {
             byte[] bytes = byteArr.getBytes();
-            BString[] base64Images = toImages(PDDocument.load(bytes));
+            PDDocument document = PDDocument.load(bytes);
+            BString[] base64Images = toImages(document);
+            document.close();
             return ValueCreator.createArrayValue(base64Images);
         } catch (IOException e) {
             return Utils.getBError("Failed to load document: " + e.getMessage());
@@ -74,7 +80,9 @@ public class PdfBox {
     public static Object toTextFromFile(BString filePath) {
         try {
             File file = new File(filePath.toString());
-            BString[] textFromPages = toText(PDDocument.load(file));
+            PDDocument document = PDDocument.load(file);
+            BString[] textFromPages = toText(document);
+            document.close();
             return ValueCreator.createArrayValue(textFromPages);
         } catch (IOException e) {
             return Utils.getBError("Failed to load document: " + e.getMessage());
@@ -85,7 +93,9 @@ public class PdfBox {
         try {
             URL urlObj = new URL(url.toString());
             InputStream inputStream = urlObj.openStream();
-            BString[] textFromPages = toText(PDDocument.load(inputStream));
+            PDDocument document = PDDocument.load(inputStream);
+            BString[] textFromPages = toText(document);
+            document.close();
             return ValueCreator.createArrayValue(textFromPages);
         } catch (IOException e) {
             return Utils.getBError("Failed to load document: " + e.getMessage());
@@ -95,7 +105,9 @@ public class PdfBox {
     public static Object toTextFromBytes(BArray byteArr) {
         try {
             byte[] bytes = byteArr.getBytes();
-            BString[] textFromPages = toText(PDDocument.load(bytes));
+            PDDocument document = PDDocument.load(bytes);
+            BString[] textFromPages = toText(document);
+            document.close();
             return ValueCreator.createArrayValue(textFromPages);
         } catch (IOException e) {
             return Utils.getBError("Failed to load document: " + e.getMessage());
