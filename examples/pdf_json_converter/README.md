@@ -12,7 +12,7 @@ The process begins by converting each page of the PDF documents into images usin
 2. In the root directory create a `Config.toml` file and include your API key. Below is an example configuration:
 
 ```toml
-[pdf_json_converter.constants]
+[pdf_json_converter.openai]
 token = "<API key>"
 ```
 

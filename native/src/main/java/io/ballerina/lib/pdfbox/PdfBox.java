@@ -31,7 +31,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
@@ -42,75 +44,105 @@ public class PdfBox {
 
     public static Object toImagesFromFile(BString filePath) {
         try {
-            File file = new File(filePath.toString());
-            PDDocument document = PDDocument.load(file);
-            BString[] base64Images = toImages(document);
-            document.close();
-            return ValueCreator.createArrayValue(base64Images);
+            if (isValidFile(filePath.toString())) {
+                File file = new File(filePath.toString());
+                PDDocument document = PDDocument.load(file);
+                BString[] base64Images = toImages(document);
+                document.close();
+                return ValueCreator.createArrayValue(base64Images);
+            }
+            return null;
+        } catch (IllegalArgumentException e) {
+            return Utils.getBError("error: " + e.getMessage(), e);
         } catch (IOException e) {
-            return Utils.getBError("Failed to load document: " + e.getMessage());
+            return Utils.getBError("error: Invalid or corrupted PDF file. (" + filePath + ")", e);
         }
     }
 
     public static Object toImagesFromURL(BString url) {
         try {
-            URL urlObj = new URL(url.toString());
-            InputStream inputStream = urlObj.openStream();
-            PDDocument document = PDDocument.load(inputStream);
-            BString[] base64Images = toImages(document);
-            document.close();
-            return ValueCreator.createArrayValue(base64Images);
+            if (isValidURL(url.toString())) {
+                URL urlObj = new URL(url.toString());
+                InputStream inputStream = urlObj.openStream();
+                PDDocument document = PDDocument.load(inputStream);
+                BString[] base64Images = toImages(document);
+                document.close();
+                return ValueCreator.createArrayValue(base64Images);
+            }
+            return null;
+        } catch (IllegalArgumentException e) {
+            return Utils.getBError("error: " + e.getMessage(), e);
         } catch (IOException e) {
-            return Utils.getBError("Failed to load document: " + e.getMessage());
+            return Utils.getBError("error: Invalid or corrupted PDF file. (" + url + ")", e);
         }
     }
 
     public static Object toImagesFromBytes(BArray byteArr) {
         try {
-            byte[] bytes = byteArr.getBytes();
-            PDDocument document = PDDocument.load(bytes);
-            BString[] base64Images = toImages(document);
-            document.close();
-            return ValueCreator.createArrayValue(base64Images);
+            if (isValidBytes(byteArr.getBytes())) {
+                byte[] bytes = byteArr.getBytes();
+                PDDocument document = PDDocument.load(bytes);
+                BString[] base64Images = toImages(document);
+                document.close();
+                return ValueCreator.createArrayValue(base64Images);
+            }
+            return null;
+        } catch (IllegalArgumentException e) {
+            return Utils.getBError("error: " + e.getMessage(), e);
         } catch (IOException e) {
-            return Utils.getBError("Failed to load document: " + e.getMessage());
+            return Utils.getBError("error: Invalid or corrupted PDF file.", e);
         }
     }
 
     public static Object toTextFromFile(BString filePath) {
         try {
-            File file = new File(filePath.toString());
-            PDDocument document = PDDocument.load(file);
-            BString[] textFromPages = toText(document);
-            document.close();
-            return ValueCreator.createArrayValue(textFromPages);
+            if (isValidFile(filePath.toString())) {
+                File file = new File(filePath.toString());
+                PDDocument document = PDDocument.load(file);
+                BString[] textFromPages = toText(document);
+                document.close();
+                return ValueCreator.createArrayValue(textFromPages);
+            }
+            return null;
+        } catch (IllegalArgumentException e) {
+            return Utils.getBError("error: " + e.getMessage(), e);
         } catch (IOException e) {
-            return Utils.getBError("Failed to load document: " + e.getMessage());
+            return Utils.getBError("error: Invalid or corrupted PDF file. (" + filePath + ")", e);
         }
     }
 
     public static Object toTextFromURL(BString url) {
         try {
-            URL urlObj = new URL(url.toString());
-            InputStream inputStream = urlObj.openStream();
-            PDDocument document = PDDocument.load(inputStream);
-            BString[] textFromPages = toText(document);
-            document.close();
-            return ValueCreator.createArrayValue(textFromPages);
+            if (isValidURL(url.toString())) {
+                URL urlObj = new URL(url.toString());
+                InputStream inputStream = urlObj.openStream();
+                PDDocument document = PDDocument.load(inputStream);
+                BString[] textFromPages = toText(document);
+                document.close();
+                return ValueCreator.createArrayValue(textFromPages);
+            }
+            return null;
+        } catch (IllegalArgumentException e) {
+            return Utils.getBError("error: " + e.getMessage(), e);
         } catch (IOException e) {
-            return Utils.getBError("Failed to load document: " + e.getMessage());
+            return Utils.getBError("error: Invalid or corrupted PDF file. (" + url + ")", e);
         }
     }
 
     public static Object toTextFromBytes(BArray byteArr) {
         try {
-            byte[] bytes = byteArr.getBytes();
-            PDDocument document = PDDocument.load(bytes);
-            BString[] textFromPages = toText(document);
-            document.close();
-            return ValueCreator.createArrayValue(textFromPages);
+            if (isValidBytes(byteArr.getBytes())) {
+                byte[] bytes = byteArr.getBytes();
+                PDDocument document = PDDocument.load(bytes);
+                BString[] textFromPages = toText(document);
+                document.close();
+                return ValueCreator.createArrayValue(textFromPages);
+            }
+            return null;
+        } catch (IllegalArgumentException e) {
+            return Utils.getBError("error: " + e.getMessage(), e);
         } catch (IOException e) {
-            return Utils.getBError("Failed to load document: " + e.getMessage());
+            return Utils.getBError("error: Invalid or corrupted PDF file.", e);
         }
     }
 
@@ -154,4 +186,46 @@ public class PdfBox {
 
         return textFromPages;
     }
+
+    private static boolean isValidFile(String path) throws IllegalArgumentException {
+        File file = new File(path);
+        if (!file.exists()) {
+            throw new IllegalArgumentException("The system cannot find the path specified. (" + path + ")");
+        }
+        if (!path.endsWith(".pdf")) {
+            throw new IllegalArgumentException("Unsupported file type. Expected .pdf file. (" + path + ")");
+        }
+        return true;
+    }
+
+    private static boolean isValidBytes(byte[] bytes) throws IllegalArgumentException {
+        String header = new String(bytes, 0, Math.min(bytes.length, 4), StandardCharsets.UTF_8);
+        if (!header.startsWith("%PDF")) {
+            throw new IllegalArgumentException("Unsupported file type. Expected .pdf file.");
+        }
+        return true;
+    }
+
+    private static boolean isValidURL(String fileUrl) throws IOException {
+        try {
+            URL url = new URL(fileUrl);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("GET");
+
+            if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
+                throw new IllegalArgumentException("The system cannot find the url specified. (" + fileUrl + ")");
+            }
+
+            String contentType = connection.getContentType();
+            if (contentType == null || !contentType.equals("application/pdf")) {
+                throw new IllegalArgumentException("Unsupported file type. Expected .pdf file. (" + fileUrl + ")");
+            }
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException(e.getMessage());
+        } catch (IOException e) {
+            throw new IllegalArgumentException("The system cannot find the url specified. (" + fileUrl + ")");
+        }
+        return true;
+    }
+
 }

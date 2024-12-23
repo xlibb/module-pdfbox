@@ -14,7 +14,6 @@
 // specific language governing permissions and limitations
 // under the License.
 
-import pdf_json_converter.constants;
 import pdf_json_converter.openai;
 
 import ballerina/io;
@@ -24,13 +23,16 @@ import xlibb/pdfbox;
 
 public function main() returns error? {
 
+    json schema = check io:fileReadJson("./resources/schema.json");
+    string documentPath = "./resources/Form.pdf";
+
     // Convert the PDF into an array of Base64-encoded images.
     io:println("\nConverting the PDF into an array of Base64-encoded images...");
-    string[] base64Images = check pdfbox:toImagesFromFile(constants:path);
+    string[] base64Images = check pdfbox:toImagesFromFile(documentPath);
 
     // Receiving JSON data from Open AI api and printing the result.
     io:println("\nReceiving JSON data from Open AI api...");
-    json data = check openai:getJSON(base64Images, constants:schema);
+    json data = check openai:getJSON(base64Images, schema.toString());
 
     io:println("\nResult:");
     io:println(prettify:prettify(data));

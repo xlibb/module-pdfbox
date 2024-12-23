@@ -53,7 +53,9 @@ public function main() returns error? {
 
 The `pdfbox` connector provides practical examples illustrating usage in various scenarios. Explore these [examples](https://github.com/xlibb/module-pdfbox/tree/main/examples/), covering the following use cases:
 
-1. [PDF-JSON Converter](https://github.com/xlibb/module-pdfbox/tree/main/examples/pdf_json_converter). 
+1. [PDF to text](https://github.com/xlibb/module-pdfbox/tree/main/examples/pdf_to_text).
+
+2. [PDF-JSON Converter](https://github.com/xlibb/module-pdfbox/tree/main/examples/pdf_json_converter). 
 
 ## Build from the source
 

@@ -321,7 +321,6 @@ dependencies = [
 ]
 modules = [
 	{org = "xlibb", packageName = "pdf_json_converter", moduleName = "pdf_json_converter"},
-	{org = "xlibb", packageName = "pdf_json_converter", moduleName = "pdf_json_converter.constants"},
 	{org = "xlibb", packageName = "pdf_json_converter", moduleName = "pdf_json_converter.openai"}
 ]
 
