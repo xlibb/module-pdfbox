@@ -42,6 +42,12 @@ import javax.imageio.ImageIO;
 
 public class PdfBox {
 
+    private static final String CORRUPTED_ERROR = "error: Invalid or corrupted PDF file. Provided: ";
+    private static final String INVALID_PATH_ERROR = "error: The system cannot find the path specified. Provided: ";
+    private static final String INVALID_URL_ERROR = "error: The system cannot find the URL specified. Provided: ";
+    private static final String INVALID_EXTENSION_ERROR = "error: Unsupported file type. " +
+            "A .pdf file is expected. Provided: ";
+
     public static Object toImagesFromFile(BString filePath) {
         try {
             if (isValidFile(filePath.toString())) {
@@ -53,9 +59,9 @@ public class PdfBox {
             }
             return null;
         } catch (IllegalArgumentException e) {
-            return Utils.getBError("error: " + e.getMessage(), e);
+            return Utils.getBError(e.getMessage(), e);
         } catch (IOException e) {
-            return Utils.getBError("error: Invalid or corrupted PDF file. (" + filePath + ")", e);
+            return Utils.getBError(CORRUPTED_ERROR + filePath, e);
         }
     }
 
@@ -71,9 +77,9 @@ public class PdfBox {
             }
             return null;
         } catch (IllegalArgumentException e) {
-            return Utils.getBError("error: " + e.getMessage(), e);
+            return Utils.getBError(e.getMessage(), e);
         } catch (IOException e) {
-            return Utils.getBError("error: Invalid or corrupted PDF file. (" + url + ")", e);
+            return Utils.getBError(CORRUPTED_ERROR + url, e);
         }
     }
 
@@ -88,7 +94,7 @@ public class PdfBox {
             }
             return null;
         } catch (IllegalArgumentException e) {
-            return Utils.getBError("error: " + e.getMessage(), e);
+            return Utils.getBError(e.getMessage(), e);
         } catch (IOException e) {
             return Utils.getBError("error: Invalid or corrupted PDF file.", e);
         }
@@ -105,9 +111,9 @@ public class PdfBox {
             }
             return null;
         } catch (IllegalArgumentException e) {
-            return Utils.getBError("error: " + e.getMessage(), e);
+            return Utils.getBError(e.getMessage(), e);
         } catch (IOException e) {
-            return Utils.getBError("error: Invalid or corrupted PDF file. (" + filePath + ")", e);
+            return Utils.getBError(CORRUPTED_ERROR + filePath, e);
         }
     }
 
@@ -123,9 +129,9 @@ public class PdfBox {
             }
             return null;
         } catch (IllegalArgumentException e) {
-            return Utils.getBError("error: " + e.getMessage(), e);
+            return Utils.getBError(e.getMessage(), e);
         } catch (IOException e) {
-            return Utils.getBError("error: Invalid or corrupted PDF file. (" + url + ")", e);
+            return Utils.getBError(CORRUPTED_ERROR + url, e);
         }
     }
 
@@ -140,7 +146,7 @@ public class PdfBox {
             }
             return null;
         } catch (IllegalArgumentException e) {
-            return Utils.getBError("error: " + e.getMessage(), e);
+            return Utils.getBError(e.getMessage(), e);
         } catch (IOException e) {
             return Utils.getBError("error: Invalid or corrupted PDF file.", e);
         }
@@ -190,10 +196,10 @@ public class PdfBox {
     private static boolean isValidFile(String path) throws IllegalArgumentException {
         File file = new File(path);
         if (!file.exists()) {
-            throw new IllegalArgumentException("The system cannot find the path specified. (" + path + ")");
+            throw new IllegalArgumentException(INVALID_PATH_ERROR + path);
         }
         if (!path.endsWith(".pdf")) {
-            throw new IllegalArgumentException("Unsupported file type. Expected .pdf file. (" + path + ")");
+            throw new IllegalArgumentException(INVALID_EXTENSION_ERROR + path);
         }
         return true;
     }
@@ -201,7 +207,7 @@ public class PdfBox {
     private static boolean isValidBytes(byte[] bytes) throws IllegalArgumentException {
         String header = new String(bytes, 0, Math.min(bytes.length, 4), StandardCharsets.UTF_8);
         if (!header.startsWith("%PDF")) {
-            throw new IllegalArgumentException("Unsupported file type. Expected .pdf file.");
+            throw new IllegalArgumentException("error: Unsupported file type. Expected .pdf file.");
         }
         return true;
     }
@@ -213,17 +219,17 @@ public class PdfBox {
             connection.setRequestMethod("GET");
 
             if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
-                throw new IllegalArgumentException("The system cannot find the url specified. (" + fileUrl + ")");
+                throw new IllegalArgumentException(INVALID_URL_ERROR + fileUrl);
             }
 
             String contentType = connection.getContentType();
             if (contentType == null || !contentType.equals("application/pdf")) {
-                throw new IllegalArgumentException("Unsupported file type. Expected .pdf file. (" + fileUrl + ")");
+                throw new IllegalArgumentException(INVALID_EXTENSION_ERROR + fileUrl);
             }
         } catch (IllegalArgumentException e) {
             throw new IllegalArgumentException(e.getMessage());
         } catch (IOException e) {
-            throw new IllegalArgumentException("The system cannot find the url specified. (" + fileUrl + ")");
+            throw new IllegalArgumentException(INVALID_URL_ERROR + fileUrl);
         }
         return true;
     }

@@ -46,7 +46,7 @@ function testToImagesFromURL(TestCase testCase) returns error? {
 }
 function testToImagesFromSinglePageBytes(TestCase testCase) returns error? {
     byte[]|error bytes = io:fileReadBytes(testCase.path);
-    if (bytes is error) {
+    if bytes is error {
         test:assertFail("Error while converting file to bytes: " + testCase.path);
     }
     string[]|Error actualValue = toImagesFromBytes(bytes);
@@ -74,7 +74,7 @@ function testToTextFromURL(TestCase testCase) returns error? {
 }
 function testToTextFromBytes(TestCase testCase) returns error? {
     byte[]|error bytes = io:fileReadBytes(testCase.path);
-    if (bytes is error) {
+    if bytes is error {
         test:assertFail("Error while converting file to bytes: " + testCase.path);
     }
     string[]|Error actualValue = toTextFromBytes(bytes);
@@ -86,7 +86,7 @@ function validateResults(string[]|Error actualValue, string[] expectedValue, str
         test:assertFail("Expected result but got an error: " + testName);
     }
     test:assertEquals(actualValue.length(), expectedValue.length(), msg = testName + ": Mismatch in array length");
-    foreach int i in 0..<expectedValue.length() {
+    foreach int i in 0 ..< expectedValue.length() {
         test:assertEquals(actualValue[i], expectedValue[i], msg = testName + ": Mismatch in value at index " + i.toString());
     }
 }
@@ -112,6 +112,6 @@ function TestCaseProvider() returns TestCase[][]|error {
         expectedBase64: check io:fileReadLines(file:getCurrentDir() + "/tests/resources/docWithImageBase64.txt"),
         expectedText: ["Ballerina Lang\r\n"]
     };
-    
+
     return [[singlePageTest], [multiPageTest], [docWithImageTest]];
 }

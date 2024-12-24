@@ -36,7 +36,7 @@ chat:Client chatClient = check new ({
     timeout: 120
 });
 
-public function getJSON(string[] images, string schema) returns json|error {
+public function getJSON(string[] images, string schema) returns json|error? {
 
     chat:ChatCompletionRequestMessageContentPartImage[] imgContent = [];
 
@@ -55,8 +55,6 @@ public function getJSON(string[] images, string schema) returns json|error {
     } else if jsonString is string {
         return jsonString.fromJsonString();
     }
-
-    return "";
 
 }
 
