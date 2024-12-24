@@ -21,7 +21,7 @@ import ballerina/jballerina.java;
 # + filePath - The file path of the PDF document to be converted.
 # + return - If the conversion is successful, returns an array of Base64-encoded images representing each page of the PDF. Otherwise, returns an error.
 public isolated function toImagesFromFile(string filePath) returns string[]|Error = @java:Method {
-    'class: "io.ballerina.lib.pdfbox.PdfBox"
+    'class: "io.xlibb.pdfbox.PdfBox"
 } external;
 
 # Converts a PDF document accessible via a given URL into an array of Base64-encoded images.
@@ -29,7 +29,7 @@ public isolated function toImagesFromFile(string filePath) returns string[]|Erro
 # + url - The URL of the PDF document to be converted.
 # + return - If the conversion is successful, returns an array of Base64-encoded images representing each page of the PDF. Otherwise, returns an error.
 public isolated function toImagesFromURL(string url) returns string[]|Error = @java:Method {
-    'class: "io.ballerina.lib.pdfbox.PdfBox"
+    'class: "io.xlibb.pdfbox.PdfBox"
 } external;
 
 # Converts a PDF document provided as a byte array into an array of Base64-encoded images.
@@ -37,7 +37,7 @@ public isolated function toImagesFromURL(string url) returns string[]|Error = @j
 # + byteArray - The byte array representing the PDF document to be converted.
 # + return - If the conversion is successful, returns an array of Base64-encoded images representing each page of the PDF. Otherwise, returns an error.
 public isolated function toImagesFromBytes(byte[] byteArray) returns string[]|Error = @java:Method {
-    'class: "io.ballerina.lib.pdfbox.PdfBox"
+    'class: "io.xlibb.pdfbox.PdfBox"
 } external;
 
 # Extracts text content from a PDF document located at the specified file path.
@@ -45,7 +45,7 @@ public isolated function toImagesFromBytes(byte[] byteArray) returns string[]|Er
 # + filePath - The file path of the PDF document to extract text from.
 # + return - If successful, returns an array of text strings where each element represents text extracted from a page of the PDF. Otherwise, returns an error.
 public isolated function toTextFromFile(string filePath) returns string[]|Error = @java:Method {
-    'class: "io.ballerina.lib.pdfbox.PdfBox"
+    'class: "io.xlibb.pdfbox.PdfBox"
 } external;
 
 # Extracts text content from a PDF document accessible via a given URL.
@@ -53,7 +53,7 @@ public isolated function toTextFromFile(string filePath) returns string[]|Error 
 # + url - The URL of the PDF document to extract text from.
 # + return - If successful, returns an array of text strings where each element represents text extracted from a page of the PDF. Otherwise, returns an error.
 public isolated function toTextFromURL(string url) returns string[]|Error = @java:Method {
-    'class: "io.ballerina.lib.pdfbox.PdfBox"
+    'class: "io.xlibb.pdfbox.PdfBox"
 } external;
 
 # Extracts text content from a PDF document provided as a byte array.
@@ -61,5 +61,5 @@ public isolated function toTextFromURL(string url) returns string[]|Error = @jav
 # + byteArray - The byte array representing the PDF document to extract text from.
 # + return - If successful, returns an array of text strings where each element represents text extracted from a page of the PDF. Otherwise, returns an error.
 public isolated function toTextFromBytes(byte[] byteArray) returns string[]|Error = @java:Method {
-    'class: "io.ballerina.lib.pdfbox.PdfBox"
+    'class: "io.xlibb.pdfbox.PdfBox"
 } external;

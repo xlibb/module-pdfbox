@@ -14,13 +14,13 @@
 // specific language governing permissions and limitations
 // under the License.
 
-package io.ballerina.lib.pdfbox;
+package io.xlibb.pdfbox;
 
-import io.ballerina.lib.pdfbox.utils.Utils;
 import io.ballerina.runtime.api.creators.ValueCreator;
 import io.ballerina.runtime.api.utils.StringUtils;
 import io.ballerina.runtime.api.values.BArray;
 import io.ballerina.runtime.api.values.BString;
+import io.xlibb.pdfbox.utils.Utils;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.rendering.ImageType;
 import org.apache.pdfbox.rendering.PDFRenderer;

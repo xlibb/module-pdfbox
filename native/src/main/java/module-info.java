@@ -14,10 +14,10 @@
 // specific language governing permissions and limitations
 // under the License.
 
-module io.ballerina.lib.pdfbox {
+module io.xlibb.pdfbox {
     requires io.ballerina.runtime;
     requires io.ballerina.lang;
     requires org.apache.pdfbox;
     requires java.desktop;
-    exports io.ballerina.lib.pdfbox;
+    exports io.xlibb.pdfbox;
 }

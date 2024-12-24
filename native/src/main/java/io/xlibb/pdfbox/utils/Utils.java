@@ -14,7 +14,7 @@
 // specific language governing permissions and limitations
 // under the License.
 
-package io.ballerina.lib.pdfbox.utils;
+package io.xlibb.pdfbox.utils;
 
 import io.ballerina.runtime.api.creators.ErrorCreator;
 import io.ballerina.runtime.api.utils.StringUtils;

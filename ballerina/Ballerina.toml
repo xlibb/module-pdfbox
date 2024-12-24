@@ -16,7 +16,7 @@ observabilityIncluded = true
 graalvmCompatible = true
 
 [[platform.java17.dependency]]
-groupId = "io.ballerina.lib.pdfbox"
+groupId = "io.xlibb.pdfbox"
 artifactId = "pdfbox-native"
 version = "0.1.0"
 path = "../native/build/libs/pdfbox-native-0.1.0-SNAPSHOT.jar"
