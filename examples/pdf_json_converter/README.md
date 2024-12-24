@@ -25,11 +25,4 @@ cd .\examples\pdf_json_converter
 bal run
 ```
 
-> The PDF to be converted is located in the [`/resources/Form.pdf`](./resources/Form.pdf) folder, and the target schema is defined in the [`./modules/constants/constants.bal`](./modules/constants/constants.bal) file.
-
-To convert a different PDF:
-
-- Place your PDF file in the [`/resources`](./resources) folder.
-- If the file name is different from `Form.pdf`, update the path variable in the [`./modules/constants/constants.bal`](./modules/constants/constants.bal) file to reflect the new file name.
-- Adjust the schema variable in the same file to match the structure of your PDF.
-- Run the project as described above.
+> The PDF to be converted is located in the [`/resources/Form.pdf`](./resources/Form.pdf) folder, and the target schema is defined in the [`./resources/schema.json`](./resources/schema.json) file.
