@@ -1,4 +1,4 @@
-# Convert a PDF file into JSON.
+# Convert a PDF file into JSON
 
 ## Overview
 This guide explains how to extract text from embedded PDF files. 

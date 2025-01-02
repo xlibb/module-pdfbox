@@ -1,4 +1,4 @@
-# Convert a PDF file into JSON.
+# Convert a PDF file into JSON
 
 ## Overview
 This guide explains how to extract JSON data from various types of PDF documents, including scanned and embedded files, based on a specified JSON schema. 
