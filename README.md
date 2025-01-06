@@ -51,7 +51,7 @@ public function main() returns error? {
 
 ## Examples
 
-The `pdfbox` connector provides practical examples illustrating usage in various scenarios. Explore these [examples](https://github.com/xlibb/module-pdfbox/tree/main/examples/), covering the following use cases:
+The `pdfbox` library provides practical examples illustrating usage in various scenarios. Explore these [examples](https://github.com/xlibb/module-pdfbox/tree/main/examples/), covering the following use cases:
 
 1. [PDF to text](https://github.com/xlibb/module-pdfbox/tree/main/examples/pdf_to_text).
 
