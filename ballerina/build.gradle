@@ -44,8 +44,6 @@ def stripBallerinaExtensionVersion(String extVersion) {
     }
 }
 
-apply plugin: 'io.ballerina.plugin'
-
 ballerina {
     packageOrganization = packageOrg
     module = packageName
