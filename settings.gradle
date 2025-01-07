@@ -23,6 +23,7 @@ pluginManagement {
         id "com.github.spotbugs-base" version "${spotbugsPluginVersion}"
         id "com.github.johnrengelman.shadow" version "${shadowJarPluginVersion}"
         id "de.undercouch.download" version "${downloadPluginVersion}"
+        id "io.ballerina.plugin-gradle" version "${ballerinaGradlePluginVersion}"
     }
 
     repositories {

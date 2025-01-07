@@ -19,10 +19,10 @@
 import org.apache.tools.ant.taskdefs.condition.Os
 
 plugins {
-    id 'io.ballerina.plugin'
+    id "io.ballerina.plugin"
 }
 
-description = 'pdfbox - Ballerina'
+description = 'Ballerina - Pdfbox Package'
 
 def packageName = "pdfbox"
 def packageOrg = "xlibb"
@@ -47,9 +47,15 @@ def stripBallerinaExtensionVersion(String extVersion) {
 ballerina {
     packageOrganization = packageOrg
     module = packageName
-    testCoverageParam = "--code-coverage --coverage-format=xml"
-    isConnector = true
+    langVersion = ballerinaLangVersion
+    testCoverageParam = "--code-coverage --coverage-format=xml --includes=io.xlibb.pdfbox.*:xlibb.pdfbox*"
     platform = "java17"
+}
+
+dependencies {
+    jbalTools("org.ballerinalang:jballerina-tools:${ballerinaLangVersion}") {
+        transitive = false
+    }
 }
 
 task updateTomlFiles {
@@ -66,9 +72,9 @@ task commitTomlFiles {
         project.exec {
             ignoreExitValue true
             if (Os.isFamily(Os.FAMILY_WINDOWS)) {
-                commandLine 'cmd', '/c', "git commit -m \"[Automated] Update the toml files\" Ballerina.toml Dependencies.toml"
+                commandLine 'cmd', '/c', "git commit -m \"[Automated] Update the native jar versions\" Ballerina.toml Dependencies.toml"
             } else {
-                commandLine 'sh', '-c', "git commit -m '[Automated] Update the toml files' Ballerina.toml Dependencies.toml"
+                commandLine 'sh', '-c', "git commit -m '[Automated] Update the native jar versions' Ballerina.toml Dependencies.toml"
             }
         }
     }
@@ -80,10 +86,11 @@ publishing {
             artifact source: createArtifactZip, extension: 'zip'
         }
     }
+
     repositories {
         maven {
             name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/ballerina-platform/module-${packageOrg}-${packageName}")
+            url = uri("https://maven.pkg.github.com/xlibb/module-pdfbox")
             credentials {
                 username = System.getenv("publishUser")
                 password = System.getenv("publishPAT")
@@ -92,12 +99,10 @@ publishing {
     }
 }
 
-clean {
-    delete 'build'
-}
+updateTomlFiles.dependsOn copyStdlibs
 
-test.dependsOn ":${packageName}-native:build"
-build.dependsOn ":${packageName}-native:build"
+test.dependsOn ":pdfbox-native:build"
+build.dependsOn ":pdfbox-native:build"
 build.dependsOn "generatePomFileForMavenPublication"
 publishToMavenLocal.dependsOn build
 publish.dependsOn build

@@ -6,7 +6,7 @@ This module offers two core APIs: one for converting PDF documents into images a
 
 #### Converting PDF documents into images
 
-```
+```ballerina
 import xlibb/pdfbox;
 
 public function main() returns error? {
@@ -24,7 +24,7 @@ public function main() returns error? {
 
 #### Extracting text from PDF documents
 
-```
+```ballerina
 import xlibb/pdfbox;
 
 public function main() returns error? {
@@ -42,7 +42,7 @@ public function main() returns error? {
 
 ## Examples
 
-The `pdfbox` connector provides practical examples illustrating usage in various scenarios. Explore these [examples](https://github.com/xlibb/module-pdfbox/tree/main/examples/), covering the following use cases:
+The `pdfbox` library provides practical examples illustrating usage in various scenarios. Explore these [examples](https://github.com/xlibb/module-pdfbox/tree/main/examples/), covering the following use cases:
 
 1. [PDF to text](https://github.com/xlibb/module-pdfbox/tree/main/examples/pdf_to_text).
 
