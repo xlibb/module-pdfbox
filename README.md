@@ -1,11 +1,11 @@
 # module-pdfbox
 This repository contains the source code of the Ballerina pdfbox library package
 
-[![Build](https://github.com/xlibb/module-pdfbox/actions/workflows/ci.yml/badge.svg)](https://github.com/xlibb/module-pdfbox/actions/workflows/ci.yml)
-[![Trivy](https://github.com/xlibb/module-pdfbox/actions/workflows/trivy-scan.yml/badge.svg)](https://github.com/xlibb/module-pdfbox/actions/workflows/trivy-scan.yml)
-[![GraalVM Check](https://github.com/xlibb/module-pdfbox/actions/workflows/build-with-bal-test-graalvm.yml/badge.svg)](https://github.com/xlibb/module-pdfbox/actions/workflows/build-with-bal-test-graalvm.yml)
+[![Build](https://github.com/xlibb/module-pdfbox/actions/workflows/build-timestamped-master.yml/badge.svg)](https://github.com/xlibb/module-pdfbox/actions/workflows/build-timestamped-master.yml)
+[![codecov](https://codecov.io/gh/xlibb/module-pdfbox/branch/main/graph/badge.svg)](https://codecov.io/gh/xlibb/module-pdfbox)
 [![GitHub Last Commit](https://img.shields.io/github/last-commit/xlibb/module-pdfbox.svg)](https://github.com/xlibb/module-pdfbox/commits/main)
-[![GitHub Issues](https://img.shields.io/github/issues/ballerina-platform/ballerina-library/module/pdfbox.svg?label=Open%20Issues)](https://github.com/ballerina-platform/ballerina-library/labels/module%pdfbox)
+[![Github issues](https://img.shields.io/github/issues/xlibb/module-pdfbox/module/pdfbox.svg?label=Open%20Issues)](https://github.com/xlibb/module-pdfbox/labels/module%2Fpdfbox)
+[![GraalVM Check](https://github.com/xlibb/module-pdfbox/actions/workflows/build-with-bal-test-graalvm.yml/badge.svg)](https://github.com/xlibb/module-pdfbox/actions/workflows/build-with-bal-test-graalvm.yml)
 
 ## Overview
 
