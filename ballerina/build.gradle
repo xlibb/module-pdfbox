@@ -154,6 +154,8 @@ build.dependsOn ":pdfbox-native:build"
 build.dependsOn "generatePomFileForMavenPublication"
 build.dependsOn startPdfBoxTestResourceServer
 build.finalizedBy stopPdfBoxTestResourceServer
+test.dependsOn startPdfBoxTestResourceServer
+test.finalizedBy stopPdfBoxTestResourceServer
 
 publishToMavenLocal.dependsOn build
 publish.dependsOn build
