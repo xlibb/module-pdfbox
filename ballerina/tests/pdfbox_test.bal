@@ -25,6 +25,9 @@ type TestCase record {
     string[] expectedText;
 };
 
+string localBaseUrl = file:getCurrentDir() + "/tests/resources/server/test_resources/";
+string onlineBaseUrl = "http://localhost:8080/test_resources/";
+
 @test:Config {
     dataProvider: TestCaseProvider
 }
@@ -104,23 +107,23 @@ function validateToTextResults(string[]|Error actualValue, string[] expectedValu
 
 function TestCaseProvider() returns TestCase[][]|error {
     TestCase singlePageTest = {
-        path: file:getCurrentDir() + "/tests/resources/singlePageDoc.pdf",
-        url: "https://ipa-usecase-2-demo-frontend.vercel.app/test1.pdf",
-        expectedBase64: check io:fileReadLines(file:getCurrentDir() + "/tests/resources/singlePageDocBase64.txt"),
+        path: localBaseUrl + "singlePageDoc.pdf",
+        url: onlineBaseUrl + "singlePageDoc.pdf",
+        expectedBase64: check io:fileReadLines(localBaseUrl + "singlePageDocBase64.txt"),
         expectedText: ["Page 1"]
     };
 
     TestCase multiPageTest = {
-        path: file:getCurrentDir() + "/tests/resources/multiPageDoc.pdf",
-        url: "https://ipa-usecase-2-demo-frontend.vercel.app/test2.pdf",
-        expectedBase64: check io:fileReadLines(file:getCurrentDir() + "/tests/resources/multiPageDocBase64.txt"),
+        path: localBaseUrl + "multiPageDoc.pdf",
+        url: onlineBaseUrl + "multiPageDoc.pdf",
+        expectedBase64: check io:fileReadLines(localBaseUrl + "multiPageDocBase64.txt"),
         expectedText: ["PAGE 1", "PAGE 2"]
     };
 
     TestCase docWithImageTest = {
-        path: file:getCurrentDir() + "/tests/resources/docWithImage.pdf",
-        url: "https://ipa-usecase-2-demo-frontend.vercel.app/test3.pdf",
-        expectedBase64: check io:fileReadLines(file:getCurrentDir() + "/tests/resources/docWithImageBase64.txt"),
+        path: localBaseUrl + "docWithImage.pdf",
+        url: onlineBaseUrl + "docWithImage.pdf",
+        expectedBase64: check io:fileReadLines(localBaseUrl + "docWithImageBase64.txt"),
         expectedText: ["Ballerina Lang"]
     };
 
