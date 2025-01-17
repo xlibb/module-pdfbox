@@ -105,21 +105,21 @@ function validateToTextResults(string[]|Error actualValue, string[] expectedValu
 function TestCaseProvider() returns TestCase[][]|error {
     TestCase singlePageTest = {
         path: file:getCurrentDir() + "/tests/resources/singlePageDoc.pdf",
-        url: "https://ballerina-ipa.choreoapps.dev/test1.pdf",
+        url: "https://ipa-usecase-2-demo-frontend.vercel.app/test1.pdf",
         expectedBase64: check io:fileReadLines(file:getCurrentDir() + "/tests/resources/singlePageDocBase64.txt"),
         expectedText: ["Page 1"]
     };
 
     TestCase multiPageTest = {
         path: file:getCurrentDir() + "/tests/resources/multiPageDoc.pdf",
-        url: "https://ballerina-ipa.choreoapps.dev/test2.pdf",
+        url: "https://ipa-usecase-2-demo-frontend.vercel.app/test2.pdf",
         expectedBase64: check io:fileReadLines(file:getCurrentDir() + "/tests/resources/multiPageDocBase64.txt"),
         expectedText: ["PAGE 1", "PAGE 2"]
     };
 
     TestCase docWithImageTest = {
         path: file:getCurrentDir() + "/tests/resources/docWithImage.pdf",
-        url: "https://ballerina-ipa.choreoapps.dev/test3.pdf",
+        url: "https://ipa-usecase-2-demo-frontend.vercel.app/test3.pdf",
         expectedBase64: check io:fileReadLines(file:getCurrentDir() + "/tests/resources/docWithImageBase64.txt"),
         expectedText: ["Ballerina Lang"]
     };

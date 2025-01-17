@@ -47,7 +47,7 @@ function testCorruptedPDFFromFile() {
 
 @test:Config
 function testInvalidExtensionFromUrl() {
-    string invalidURL = "https://ballerina-ipa.choreoapps.dev/vite.svg";
+    string invalidURL = "https://ipa-usecase-2-demo-frontend.vercel.app/vite.svg";
     string[]|Error actualValue = toImagesFromURL(invalidURL);
     validateError(actualValue, "error: Unsupported file type. A .pdf file is expected. Provided: " + invalidURL);
     actualValue = toTextFromURL(invalidURL);
@@ -65,7 +65,7 @@ function testNotExistentURL() {
 
 @test:Config
 function testCorruptedPDFFromURL() {
-    string corruptedPDFUrl = "https://ballerina-ipa.choreoapps.dev/corruptedDoc.pdf";
+    string corruptedPDFUrl = "https://ipa-usecase-2-demo-frontend.vercel.app/corruptedDoc.pdf";
     string[]|Error actualValue = toImagesFromURL(corruptedPDFUrl);
     validateError(actualValue, "error: Invalid or corrupted PDF file. Provided: " + corruptedPDFUrl);
     actualValue = toTextFromURL(corruptedPDFUrl);
