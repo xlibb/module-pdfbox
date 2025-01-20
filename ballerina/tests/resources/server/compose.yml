@@ -1,0 +1,13 @@
+version: '3.9'
+
+services:
+  nginx:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:80"   
+    volumes:
+      - ./test_resources:/usr/share/nginx/html/test_resources
+    container_name: test-resource-container
+    restart: always

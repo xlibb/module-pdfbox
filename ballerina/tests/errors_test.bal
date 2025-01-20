@@ -14,13 +14,12 @@
 // specific language governing permissions and limitations
 // under the License.
 
-import ballerina/file;
 import ballerina/io;
 import ballerina/test;
 
 @test:Config
 function testInvalidExtensionFromFile() {
-    string invalidPath = file:getCurrentDir() + "/tests/resources/invalidFile.png";
+    string invalidPath = localBaseUrl + "invalidFile.png";
     string[]|Error actualValue = toImagesFromFile(invalidPath);
     validateError(actualValue, "error: Unsupported file type. A .pdf file is expected. Provided: " + invalidPath);
     actualValue = toTextFromFile(invalidPath);
@@ -29,7 +28,7 @@ function testInvalidExtensionFromFile() {
 
 @test:Config
 function testNonExistentLocalFile() {
-    string nonExistentPath = file:getCurrentDir() + "/tests/resources/notExistsDoc.pdf";
+    string nonExistentPath = localBaseUrl + "notExistsDoc.pdf";
     string[]|Error actualValue = toImagesFromFile(nonExistentPath);
     validateError(actualValue, "error: The system cannot find the path specified. Provided: " + nonExistentPath);
     actualValue = toTextFromFile(nonExistentPath);
@@ -38,7 +37,7 @@ function testNonExistentLocalFile() {
 
 @test:Config
 function testCorruptedPDFFromFile() {
-    string corruptedPDFPath = file:getCurrentDir() + "/tests/resources/corruptedDoc.pdf";
+    string corruptedPDFPath = localBaseUrl + "corruptedDoc.pdf";
     string[]|Error actualValue = toImagesFromFile(corruptedPDFPath);
     validateError(actualValue, "error: Invalid or corrupted PDF file. Provided: " + corruptedPDFPath);
     actualValue = toTextFromFile(corruptedPDFPath);
@@ -47,7 +46,7 @@ function testCorruptedPDFFromFile() {
 
 @test:Config
 function testInvalidExtensionFromUrl() {
-    string invalidURL = "https://ballerina-ipa.choreoapps.dev/vite.svg";
+    string invalidURL = onlineBaseUrl + "invalidFile.png";
     string[]|Error actualValue = toImagesFromURL(invalidURL);
     validateError(actualValue, "error: Unsupported file type. A .pdf file is expected. Provided: " + invalidURL);
     actualValue = toTextFromURL(invalidURL);
@@ -56,7 +55,7 @@ function testInvalidExtensionFromUrl() {
 
 @test:Config
 function testNotExistentURL() {
-    string nonExistentURL = "https://balna-ipa.choreoapps.dev/invalid.pdf";
+    string nonExistentURL = "https://invalid-url/invalid.pdf";
     string[]|Error actualValue = toImagesFromURL(nonExistentURL);
     validateError(actualValue, "error: The system cannot find the URL specified. Provided: " + nonExistentURL);
     actualValue = toTextFromURL(nonExistentURL);
@@ -65,7 +64,7 @@ function testNotExistentURL() {
 
 @test:Config
 function testCorruptedPDFFromURL() {
-    string corruptedPDFUrl = "https://ballerina-ipa.choreoapps.dev/corruptedDoc.pdf";
+    string corruptedPDFUrl = onlineBaseUrl + "corruptedDoc.pdf";
     string[]|Error actualValue = toImagesFromURL(corruptedPDFUrl);
     validateError(actualValue, "error: Invalid or corrupted PDF file. Provided: " + corruptedPDFUrl);
     actualValue = toTextFromURL(corruptedPDFUrl);
@@ -74,7 +73,7 @@ function testCorruptedPDFFromURL() {
 
 @test:Config
 function testInvalidDocFromBytes() returns error? {
-    string invalidPath = file:getCurrentDir() + "/tests/resources/invalidFile.png";
+    string invalidPath = localBaseUrl + "invalidFile.png";
     byte[]|error invalidBytes = io:fileReadBytes(invalidPath);
     if invalidBytes is error {
         test:assertFail("Error while converting file to bytes in testInvalidExtensionFromBytes: " + invalidPath);

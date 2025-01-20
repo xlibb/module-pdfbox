@@ -80,6 +80,54 @@ task commitTomlFiles {
     }
 }
 
+task startPdfBoxTestResourceServer() {
+    doLast {
+        if (!Os.isFamily(Os.FAMILY_WINDOWS)) {
+            def stdOut = new ByteArrayOutputStream()
+            exec {
+                commandLine 'sh', '-c', "docker ps --filter name=test-resource-container"
+                standardOutput = stdOut
+            }
+            if (!stdOut.toString().contains("test-resource-container")) {
+                println "Starting test resource server..."
+                exec {
+                    commandLine 'sh', '-c', "docker compose -f $project.projectDir/tests/resources/server/compose.yml up -d"
+                    standardOutput = stdOut
+                }
+                println stdOut.toString()
+                println "Waiting 15s until the test resource server get initiated."
+                sleep(15 * 1000)
+            } else {
+                println "Test resource server is already started."
+            }
+        }
+    }
+}
+
+task stopPdfBoxTestResourceServer() {
+    doLast {
+        if (!Os.isFamily(Os.FAMILY_WINDOWS)) {
+            def stdOut = new ByteArrayOutputStream()
+            exec {
+                commandLine 'sh', '-c', "docker ps --filter name=test-resource-container"
+                standardOutput = stdOut
+            }
+            if (stdOut.toString().contains("test-resource-container")) {
+                println "Stopping test resource server."
+                exec {
+                    commandLine 'sh', '-c', "docker stop test-resource-container"
+                    standardOutput = stdOut
+                }
+                println stdOut.toString()
+                println "Waiting 5s until the test resource server get stopped."
+                sleep(5 * 1000)
+            } else {
+                println "test resource server is not started."
+            }
+        }
+    }
+}
+
 publishing {
     publications {
         maven(MavenPublication) {
@@ -104,5 +152,10 @@ updateTomlFiles.dependsOn copyStdlibs
 test.dependsOn ":pdfbox-native:build"
 build.dependsOn ":pdfbox-native:build"
 build.dependsOn "generatePomFileForMavenPublication"
+build.dependsOn startPdfBoxTestResourceServer
+build.finalizedBy stopPdfBoxTestResourceServer
+test.dependsOn startPdfBoxTestResourceServer
+test.finalizedBy stopPdfBoxTestResourceServer
+
 publishToMavenLocal.dependsOn build
 publish.dependsOn build
