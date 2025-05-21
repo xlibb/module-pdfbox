@@ -5,12 +5,12 @@
 
 [ballerina]
 dependencies-toml-version = "2"
-distribution-version = "2201.10.2"
+distribution-version = "2201.12.4"
 
 [[package]]
 org = "ballerina"
 name = "file"
-version = "1.10.0"
+version = "1.12.0"
 scope = "testOnly"
 dependencies = [
 	{org = "ballerina", name = "io"},
@@ -25,7 +25,7 @@ modules = [
 [[package]]
 org = "ballerina"
 name = "io"
-version = "1.6.3"
+version = "1.8.0"
 scope = "testOnly"
 dependencies = [
 	{org = "ballerina", name = "jballerina.java"},
@@ -41,6 +41,17 @@ name = "jballerina.java"
 version = "0.0.0"
 modules = [
 	{org = "ballerina", packageName = "jballerina.java", moduleName = "jballerina.java"}
+]
+
+[[package]]
+org = "ballerina"
+name = "jballerina.java.arrays"
+version = "1.6.0"
+dependencies = [
+	{org = "ballerina", name = "jballerina.java"}
+]
+modules = [
+	{org = "ballerina", packageName = "jballerina.java.arrays", moduleName = "jballerina.java.arrays"}
 ]
 
 [[package]]
@@ -89,8 +100,16 @@ dependencies = [
 
 [[package]]
 org = "ballerina"
+name = "observe"
+version = "1.5.0"
+dependencies = [
+	{org = "ballerina", name = "jballerina.java"}
+]
+
+[[package]]
+org = "ballerina"
 name = "os"
-version = "1.8.0"
+version = "1.10.0"
 scope = "testOnly"
 dependencies = [
 	{org = "ballerina", name = "io"},
@@ -114,10 +133,22 @@ modules = [
 [[package]]
 org = "ballerina"
 name = "time"
-version = "2.4.0"
+version = "2.7.0"
 scope = "testOnly"
 dependencies = [
 	{org = "ballerina", name = "jballerina.java"}
+]
+
+[[package]]
+org = "ballerinai"
+name = "observe"
+version = "0.0.0"
+dependencies = [
+	{org = "ballerina", name = "jballerina.java"},
+	{org = "ballerina", name = "observe"}
+]
+modules = [
+	{org = "ballerinai", packageName = "observe", moduleName = "observe"}
 ]
 
 [[package]]
@@ -128,7 +159,9 @@ dependencies = [
 	{org = "ballerina", name = "file"},
 	{org = "ballerina", name = "io"},
 	{org = "ballerina", name = "jballerina.java"},
-	{org = "ballerina", name = "test"}
+	{org = "ballerina", name = "jballerina.java.arrays"},
+	{org = "ballerina", name = "test"},
+	{org = "ballerinai", name = "observe"}
 ]
 modules = [
 	{org = "xlibb", packageName = "pdfbox", moduleName = "pdfbox"}
