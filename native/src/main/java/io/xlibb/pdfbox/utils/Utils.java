@@ -19,6 +19,7 @@ package io.xlibb.pdfbox.utils;
 import io.ballerina.runtime.api.creators.ErrorCreator;
 import io.ballerina.runtime.api.utils.StringUtils;
 import io.ballerina.runtime.api.values.BError;
+import org.apache.pdfbox.pdmodel.font.PDType1Font;
 
 public class Utils {
 
@@ -30,4 +31,23 @@ public class Utils {
                 cause, null);
     }
 
+    public static PDType1Font getFont(String fontName) {
+        return switch (fontName) {
+            case "Times-Roman" -> PDType1Font.TIMES_ROMAN;
+            case "Times-Bold" -> PDType1Font.TIMES_BOLD;
+            case "Times-Italic" -> PDType1Font.TIMES_ITALIC;
+            case "Times-BoldItalic" -> PDType1Font.TIMES_BOLD_ITALIC;
+            case "Helvetica" -> PDType1Font.HELVETICA;
+            case "Helvetica-Bold" -> PDType1Font.HELVETICA_BOLD;
+            case "Helvetica-Oblique" -> PDType1Font.HELVETICA_OBLIQUE;
+            case "Helvetica-BoldOblique" -> PDType1Font.HELVETICA_BOLD_OBLIQUE;
+            case "Courier" -> PDType1Font.COURIER;
+            case "Courier-Bold" -> PDType1Font.COURIER_BOLD;
+            case "Courier-Oblique" -> PDType1Font.COURIER_OBLIQUE;
+            case "Courier-BoldOblique" -> PDType1Font.COURIER_BOLD_OBLIQUE;
+            case "Symbol" -> PDType1Font.SYMBOL;
+            case "ZapfDingbats" -> PDType1Font.ZAPF_DINGBATS;
+            default -> PDType1Font.HELVETICA;
+        };
+    }
 }
