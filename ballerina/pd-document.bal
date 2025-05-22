@@ -48,7 +48,7 @@ public distinct class PDDocument {
     public function save(string filePath) returns Error? {
         // convert string to Java String
         error? externalObj = save(self.jObj, java:fromString(filePath));
-        if (externalObj is error) {
+        if externalObj is error {
             return error(externalObj.message(), externalObj);
         }
     }
@@ -64,7 +64,7 @@ public distinct class PDDocument {
     # + return - Returns an error if the close not is successful.
     public function close() returns Error? {
         error? externalObj = closePDDocument(self.jObj);
-        if (externalObj is error) {
+        if externalObj is error {
             return error(externalObj.message(), externalObj);
         }
     }

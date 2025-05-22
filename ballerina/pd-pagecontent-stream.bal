@@ -43,7 +43,7 @@ public distinct class PDPageContentStream {
     # + return - `javaio:IOException` if the content stream could not be written.
     public function addComment(string comment) returns Error? {
         error|() externalObj = addComment(self.jObj, java:fromString(comment));
-        if (externalObj is error) {
+        if externalObj is error {
             return error(externalObj.message(), externalObj);
         }
     }
@@ -57,7 +57,7 @@ public distinct class PDPageContentStream {
     # + return - `javaio:IOException` if the content stream could not be written.
     public function addRect(float x, float y, float width, float height) returns Error? {
         error|() externalObj = addRect(self.jObj, x, y, width, height);
-        if (externalObj is error) {
+        if externalObj is error {
             return error(externalObj.message(), externalObj);
         }
     }
@@ -67,7 +67,7 @@ public distinct class PDPageContentStream {
     # + return - `javaio:IOException` if the content stream could not be written.
     public function beginText() returns Error? {
         error|() externalObj = beginText(self.jObj);
-        if (externalObj is error) {
+        if externalObj is error {
             return error(externalObj.message(), externalObj);
         }
     }
@@ -77,7 +77,7 @@ public distinct class PDPageContentStream {
     # + return - `javaio:IOException` if the content stream could not be written.
     public function endText() returns Error? {
         error|() externalObj = endText(self.jObj);
-        if (externalObj is error) {
+        if externalObj is error {
             return error(externalObj.message(), externalObj);
         }
     }
@@ -87,7 +87,7 @@ public distinct class PDPageContentStream {
     # + return - `javaio:IOException` if the content stream could not be written.
     public function clip() returns Error? {
         error|() externalObj = clip(self.jObj);
-        if (externalObj is error) {
+        if externalObj is error {
             return error(externalObj.message(), externalObj);
         }
     }
@@ -97,7 +97,7 @@ public distinct class PDPageContentStream {
     # + return - `javaio:IOException` if the content stream could not be written.
     public function clipEvenOdd() returns Error? {
         error|() externalObj = clipEvenOdd(self.jObj);
-        if (externalObj is error) {
+        if externalObj is error {
             return error(externalObj.message(), externalObj);
         }
     }
@@ -107,7 +107,7 @@ public distinct class PDPageContentStream {
     # + return - `javaio:IOException` if the content stream could not be written.
     public function close() returns Error? {
         error|() externalObj = closePDPageContentStream(self.jObj);
-        if (externalObj is error) {
+        if externalObj is error {
             return error(externalObj.message(), externalObj);
         }
     }
@@ -117,7 +117,7 @@ public distinct class PDPageContentStream {
     # + return - `javaio:IOException` if the content stream could not be written.
     public function closeAndFillAndStroke() returns Error? {
         error|() externalObj = closeAndFillAndStroke(self.jObj);
-        if (externalObj is error) {
+        if externalObj is error {
             return error(externalObj.message(), externalObj);
         }
     }
@@ -127,7 +127,7 @@ public distinct class PDPageContentStream {
     # + return - `javaio:IOException` if the content stream could not be written.
     public function closeAndFillAndStrokeEvenOdd() returns Error? {
         error|() externalObj = closeAndFillAndStrokeEvenOdd(self.jObj);
-        if (externalObj is error) {
+        if externalObj is error {
             return error(externalObj.message(), externalObj);
         }
     }
@@ -137,7 +137,7 @@ public distinct class PDPageContentStream {
     # + return - `javaio:IOException` if the content stream could not be written.
     public function closeAndStroke() returns Error? {
         error|() externalObj = closeAndStroke(self.jObj);
-        if (externalObj is error) {
+        if externalObj is error {
             return error(externalObj.message(), externalObj);
         }
     }
@@ -147,7 +147,7 @@ public distinct class PDPageContentStream {
     # + return - `javaio:IOException` if the content stream could not be written.
     public function closePath() returns Error? {
         error|() externalObj = closePath(self.jObj);
-        if (externalObj is error) {
+        if externalObj is error {
             return error(externalObj.message(), externalObj);
         }
     }
@@ -164,7 +164,7 @@ public distinct class PDPageContentStream {
     # + return - `javaio:IOException` if the content stream could not be written.
     public function curveTo(float x1, float y1, float x2, float y2, float x3, float y3) returns Error? {
         error|() externalObj = curveTo(self.jObj, x1, y1, x2, y2, x3, y3);
-        if (externalObj is error) {
+        if externalObj is error {
             return error(externalObj.message(), externalObj);
         }
     }
@@ -179,7 +179,7 @@ public distinct class PDPageContentStream {
     # + return - `javaio:IOException` if the content stream could not be written.
     public function curveTo1(float x1, float y1, float x3, float y3) returns Error? {
         error|() externalObj = curveTo1(self.jObj, x1, y1, x3, y3);
-        if (externalObj is error) {
+        if externalObj is error {
             return error(externalObj.message(), externalObj);
         }
     }
@@ -194,7 +194,7 @@ public distinct class PDPageContentStream {
     # + return - `javaio:IOException` if the content stream could not be written.
     public function curveTo2(float x2, float y2, float x3, float y3) returns Error? {
         error|() externalObj = curveTo2(self.jObj, x2, y2, x3, y3);
-        if (externalObj is error) {
+        if externalObj is error {
             return error(externalObj.message(), externalObj);
         }
     }
@@ -204,7 +204,7 @@ public distinct class PDPageContentStream {
     # + return - `javaio:IOException` if the content stream could not be written.
     public function fill() returns Error? {
         error|() externalObj = fill(self.jObj);
-        if (externalObj is error) {
+        if externalObj is error {
             return error(externalObj.message(), externalObj);
         }
     }
@@ -216,7 +216,7 @@ public distinct class PDPageContentStream {
     # + return - `javaio:IOException` if the content stream could not be written.
     public function fillAndStroke() returns Error? {
         error|() externalObj = fillAndStroke(self.jObj);
-        if (externalObj is error) {
+        if externalObj is error {
             return error(externalObj.message(), externalObj);
         }
     }
@@ -228,7 +228,7 @@ public distinct class PDPageContentStream {
     # + return - `javaio:IOException` if the content stream could not be written.
     public function fillAndStrokeEvenOdd() returns Error? {
         error|() externalObj = fillAndStrokeEvenOdd(self.jObj);
-        if (externalObj is error) {
+        if externalObj is error {
             return error(externalObj.message(), externalObj);
         }
     }
@@ -238,7 +238,7 @@ public distinct class PDPageContentStream {
     # + return - `javaio:IOException` if the content stream could not be written.
     public function fillEvenOdd() returns Error? {
         error|() externalObj = fillEvenOdd(self.jObj);
-        if (externalObj is error) {
+        if externalObj is error {
             return error(externalObj.message(), externalObj);
         }
     }
@@ -250,7 +250,7 @@ public distinct class PDPageContentStream {
     # + return - `javaio:IOException` if the content stream could not be written.
     public function lineTo(float x, float y) returns Error? {
         error|() externalObj = lineTo(self.jObj, x, y);
-        if (externalObj is error) {
+        if externalObj is error {
             return error(externalObj.message(), externalObj);
         }
     }
@@ -262,7 +262,7 @@ public distinct class PDPageContentStream {
     # + return - `javaio:IOException` if the content stream could not be written.
     public function moveTo(float x, float y) returns Error? {
         error|() externalObj = moveTo(self.jObj, x, y);
-        if (externalObj is error) {
+        if externalObj is error {
             return error(externalObj.message(), externalObj);
         }
     }
@@ -272,7 +272,7 @@ public distinct class PDPageContentStream {
     # + return - `javaio:IOException` if the content stream could not be written.
     public function newLine() returns Error? {
         error|() externalObj = newLine(self.jObj);
-        if (externalObj is error) {
+        if externalObj is error {
             return error(externalObj.message(), externalObj);
         }
     }
@@ -284,7 +284,7 @@ public distinct class PDPageContentStream {
     # + return - `javaio:IOException` if the content stream could not be written.
     public function newLineAtOffset(float tx, float ty) returns Error? {
         error|() externalObj = newLineAtOffset(self.jObj, tx, ty);
-        if (externalObj is error) {
+        if externalObj is error {
             return error(externalObj.message(), externalObj);
         }
     }
@@ -296,7 +296,7 @@ public distinct class PDPageContentStream {
     # + return - `javaio:IOException` if the content stream could not be written.
     public function setCharacterSpacing(float spacing) returns Error? {
         error|() externalObj = setCharacterSpacing(self.jObj, spacing);
-        if (externalObj is error) {
+        if externalObj is error {
             return error(externalObj.message(), externalObj);
         }
     }
@@ -308,7 +308,7 @@ public distinct class PDPageContentStream {
     # + return - `javaio:IOException` if the content stream could not be written.
     public function setFont(PDFont font, float fontSize) returns Error? {
         error|() externalObj = setFont(self.jObj, getFont(java:fromString(font)), fontSize);
-        if (externalObj is error) {
+        if externalObj is error {
             return error(externalObj.message(), externalObj);
         }
     }
@@ -319,7 +319,7 @@ public distinct class PDPageContentStream {
     # + return - `javaio:IOException` if the content stream could not be written.
     public function setHorizontalScaling(float scale) returns Error? {
         error|() externalObj = setHorizontalScaling(self.jObj, scale);
-        if (externalObj is error) {
+        if externalObj is error {
             return error(externalObj.message(), externalObj);
         }
     }
@@ -330,7 +330,7 @@ public distinct class PDPageContentStream {
     # + return - `javaio:IOException` if the content stream could not be written.
     public function setLeading(float leading) returns Error? {
         error|() externalObj = setLeading(self.jObj, leading);
-        if (externalObj is error) {
+        if externalObj is error {
             return error(externalObj.message(), externalObj);
         }
     }
@@ -341,7 +341,7 @@ public distinct class PDPageContentStream {
     # + return - `javaio:IOException` if the content stream could not be written.
     public function setLineCapStyle(int lineCapStyle) returns Error? {
         error|() externalObj = setLineCapStyle(self.jObj, lineCapStyle);
-        if (externalObj is error) {
+        if externalObj is error {
             return error(externalObj.message(), externalObj);
         }
     }
@@ -353,7 +353,7 @@ public distinct class PDPageContentStream {
     # + return - `javaio:IOException` if the content stream could not be written.
     public function setLineDashPattern(float[] pattern, float phase) returns Error?|error? {
         error|() externalObj = setLineDashPattern(self.jObj, check jarrays:toHandle(pattern, "float"), phase);
-        if (externalObj is error) {
+        if externalObj is error {
             return error(externalObj.message(), externalObj);
         }
     }
@@ -364,7 +364,7 @@ public distinct class PDPageContentStream {
     # + return - `javaio:IOException` if the content stream could not be written.
     public function setLineJoinStyle(int lineJoinStyle) returns Error? {
         error|() externalObj = setLineJoinStyle(self.jObj, lineJoinStyle);
-        if (externalObj is error) {
+        if externalObj is error {
             return error(externalObj.message(), externalObj);
         }
     }
@@ -375,7 +375,7 @@ public distinct class PDPageContentStream {
     # + return - `javaio:IOException` if the content stream could not be written.
     public function setLineWidth(float lineWidth) returns Error? {
         error|() externalObj = setLineWidth(self.jObj, lineWidth);
-        if (externalObj is error) {
+        if externalObj is error {
             return error(externalObj.message(), externalObj);
         }
     }
@@ -386,7 +386,7 @@ public distinct class PDPageContentStream {
     # + return - `javaio:IOException` if the content stream could not be written.
     public function setMiterLimit(float miterLimit) returns Error? {
         error|() externalObj = setMiterLimit(self.jObj, miterLimit);
-        if (externalObj is error) {
+        if externalObj is error {
             return error(externalObj.message(), externalObj);
         }
     }
@@ -397,7 +397,7 @@ public distinct class PDPageContentStream {
     # + return - `javaio:IOException` if the content stream could not be written.
     public function setNonStrokingColorDeviceGray(float g) returns Error? {
         error|() externalObj = setNonStrokingColorDeviceGray(self.jObj, g);
-        if (externalObj is error) {
+        if externalObj is error {
             return error(externalObj.message(), externalObj);
         }
     }
@@ -410,7 +410,7 @@ public distinct class PDPageContentStream {
     # + return - `javaio:IOException` if the content stream could not be written.
     public function setNonStrokingColorRGB(float r, float g, float b) returns Error? {
         error|() externalObj = setNonStrokingColorRGB(self.jObj, r, g, b);
-        if (externalObj is error) {
+        if externalObj is error {
             return error(externalObj.message(), externalObj);
         }
     }
@@ -424,7 +424,7 @@ public distinct class PDPageContentStream {
     # + return - `javaio:IOException` if the content stream could not be written.
     public function setNonStrokingColorCMYK(float c, float m, float y, float k) returns Error? {
         error|() externalObj = setNonStrokingColorCMYK(self.jObj, c, m, y, k);
-        if (externalObj is error) {
+        if externalObj is error {
             return error(externalObj.message(), externalObj);
         }
     }
@@ -435,7 +435,7 @@ public distinct class PDPageContentStream {
     # + return - `javaio:IOException` if the content stream could not be written.
     public function setStrokingColorDeviceGray(float g) returns Error? {
         error|() externalObj = setStrokingColorDeviceGray(self.jObj, g);
-        if (externalObj is error) {
+        if externalObj is error {
             return error(externalObj.message(), externalObj);
         }
     }
@@ -448,7 +448,7 @@ public distinct class PDPageContentStream {
     # + return - `javaio:IOException` if the content stream could not be written.
     public function setStrokingColorRGB(float r, float g, float b) returns Error? {
         error|() externalObj = setStrokingColorRGB(self.jObj, r, g, b);
-        if (externalObj is error) {
+        if externalObj is error {
             return error(externalObj.message(), externalObj);
         }
     }
@@ -462,7 +462,7 @@ public distinct class PDPageContentStream {
     # + return - `javaio:IOException` if the content stream could not be written.
     public function setStrokingColorCMYK(float c, float m, float y, float k) returns Error? {
         error|() externalObj = setStrokingColorCMYK(self.jObj, c, m, y, k);
-        if (externalObj is error) {
+        if externalObj is error {
             return error(externalObj.message(), externalObj);
         }
     }
@@ -474,7 +474,7 @@ public distinct class PDPageContentStream {
     # + return - `javaio:IOException` if the content stream could not be written.
     public function setTextRise(float rise) returns Error? {
         error|() externalObj = setTextRise(self.jObj, rise);
-        if (externalObj is error) {
+        if externalObj is error {
             return error(externalObj.message(), externalObj);
         }
     }
@@ -486,7 +486,7 @@ public distinct class PDPageContentStream {
     # + return - `javaio:IOException` if the content stream could not be written.
     public function setWordSpacing(float spacing) returns Error? {
         error|() externalObj = setWordSpacing(self.jObj, spacing);
-        if (externalObj is error) {
+        if externalObj is error {
             return error(externalObj.message(), externalObj);
         }
     }
@@ -497,7 +497,7 @@ public distinct class PDPageContentStream {
     # + return - `javaio:IOException` if the content stream could not be written.
     public function showText(string text) returns Error? {
         error|() externalObj = showText(self.jObj, java:fromString(text));
-        if (externalObj is error) {
+        if externalObj is error {
             return error(externalObj.message(), externalObj);
         }
     }
@@ -507,7 +507,7 @@ public distinct class PDPageContentStream {
     # + return - `javaio:IOException` if the content stream could not be written.
     public function stroke() returns Error? {
         error|() externalObj = stroke(self.jObj);
-        if (externalObj is error) {
+        if externalObj is error {
             return error(externalObj.message(), externalObj);
         }
     }
