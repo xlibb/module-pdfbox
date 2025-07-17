@@ -1,12 +1,36 @@
 name: Trivy
 
 on:
-  push:
-  workflow_dispatch:
+    push:
+    workflow_dispatch:
 
 jobs:
-    call_workflow:
-        name: Run Trivy Scan Workflow
-        if: ${{ github.repository_owner == 'xlibb' }}
-        uses: ballerina-platform/ballerina-library/.github/workflows/trivy-scan-template.yml@main
-        secrets: inherit
+    ubuntu-build:
+        name: Build on Ubuntu
+        runs-on: ubuntu-latest
+        steps:
+            -   uses: actions/checkout@v2
+            -   name: Set up JDK 21
+                uses: actions/setup-java@v2
+                with:
+                    distribution: 'temurin'
+                    java-version: 21.0.3
+
+            -   name: Build with Gradle
+                env:
+                    packageUser: ${{ github.actor }}
+                    packagePAT: ${{ secrets.GITHUB_TOKEN }}
+                run: ./gradlew build -x check -x test
+
+            -   name: Create lib directory if not exists
+                run: mkdir -p ballerina/lib
+
+            -   name: Run Trivy vulnerability scanner
+                uses: aquasecurity/trivy-action@master
+                with:
+                    scan-type: 'rootfs'
+                    scan-ref: '/github/workspace/ballerina/lib'
+                    format: 'table'
+                    timeout: '10m0s'
+                    exit-code: '1'
+                    cache-dir: "/tmp/trivy-cache"
