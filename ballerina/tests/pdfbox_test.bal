@@ -29,6 +29,16 @@ string localBaseUrl = file:getCurrentDir() + "/tests/resources/server/test_resou
 string onlineBaseUrl = "http://localhost:8080/test_resources/";
 
 @test:Config {
+    groups: ["encode"]
+}
+function testTextFromEncodedText() returns io:Error|Error? {
+    string fileReadString = check io:fileReadString("tests/resources/files/encoded_pdf.txt");
+    string stringFromEncodedFile = check toStringFromEncodedText(fileReadString);
+    string expectedText = check io:fileReadString("tests/resources/files/expected.txt");
+    test:assertEquals(stringFromEncodedFile.trim(), expectedText.trim());
+}
+
+@test:Config {
     dataProvider: TestCaseProvider
 }
 function testToImagesFromFile(TestCase testCase) returns error? {
