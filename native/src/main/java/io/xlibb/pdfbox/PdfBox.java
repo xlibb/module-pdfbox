@@ -27,7 +27,6 @@ import org.apache.pdfbox.rendering.PDFRenderer;
 import org.apache.pdfbox.text.PDFTextStripper;
 
 import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
@@ -63,18 +62,6 @@ public class PdfBox {
             return Utils.getBError(e.getMessage(), e);
         } catch (IOException e) {
             return Utils.getBError(CORRUPTED_ERROR + filePath, e);
-        }
-    }
-
-    public static Object toStringFromEncodedText(BString content) {
-        try {
-            String encodedContent = content.getValue().replaceAll("\\s+", "");
-            byte[] pdfBytes = Base64.getDecoder().decode(encodedContent);
-            PDDocument document = PDDocument.load(new ByteArrayInputStream(pdfBytes));
-            PDFTextStripper stripper = new PDFTextStripper();
-            return  StringUtils.fromString(stripper.getText(document));
-        } catch (Exception e) {
-            return Utils.getBError(e.getMessage(), e);
         }
     }
 
