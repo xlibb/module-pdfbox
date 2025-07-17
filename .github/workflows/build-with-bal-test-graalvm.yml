@@ -15,11 +15,9 @@ on:
                 description: Default native-image options
                 required: false
                 default: ''
-    schedule:
-        -   cron: '30 18 * * *'
     pull_request:
         branches:
-            - master
+            - main
         types: [ opened, synchronize, reopened, labeled, unlabeled ]
 
 concurrency:
