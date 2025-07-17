@@ -12,9 +12,6 @@ repository = "https://github.com/xlibb/module-pdfbox"
 [build-options]
 observabilityIncluded = true
 
-[platform.java21]
-graalvmCompatible = true
-
 [[platform.java21.dependency]]
 groupId = "io.xlibb.pdfbox"
 artifactId = "pdfbox-native"
