@@ -63,7 +63,3 @@ public isolated function toTextFromURL(string url) returns string[]|Error = @jav
 public isolated function toTextFromBytes(byte[] byteArray) returns string[]|Error = @java:Method {
     'class: "io.xlibb.pdfbox.PdfBox"
 } external;
-
-public isolated function toStringFromEncodedText(string content) returns string|Error = @java:Method {
-    'class: "io.xlibb.pdfbox.PdfBox"
-} external;
