@@ -7,45 +7,43 @@ This repository contains the source code of the Ballerina pdfbox library package
 [![Github issues](https://img.shields.io/github/issues/xlibb/module-pdfbox/module/pdfbox.svg?label=Open%20Issues)](https://github.com/xlibb/module-pdfbox/labels/module%2Fpdfbox)
 [![GraalVM Check](https://github.com/xlibb/module-pdfbox/actions/workflows/build-with-bal-test-graalvm.yml/badge.svg)](https://github.com/xlibb/module-pdfbox/actions/workflows/build-with-bal-test-graalvm.yml)
 
-## Overview
+The Ballerina PDFBox module provides comprehensive APIs for PDF document processing, offering efficient solutions for converting PDF documents into images and extracting text content. This module enables PDF manipulation within Ballerina applications, supporting various input sources including file paths, URLs, and byte arrays.
 
-This module offers two core APIs: one for converting PDF documents into images and another for extracting text from PDF documents, providing efficient and versatile solutions for PDF processing.
+## Quick Start
 
-## Usage
+Get started with the PDFBox module by following these simple steps to process your first PDF document.
 
-#### Converting PDF documents into images
+### Converting PDF documents to images
 
 ```ballerina
 import xlibb/pdfbox;
 
 public function main() returns error? {
-
-    // Convert the PDF located at a file path into an array of Base64-encoded images.
-    string[] base64ImagesForFilePath = check pdfbox:toImagesFromFile("C://path/to/file/myfile.pdf");
-
-    // Convert the PDF available at a URL into an array of Base64-encoded images.
-    string[] base64ImagesForURL = check pdfbox:toImagesFromURL("https://url/to/file/myfile.pdf");
-
-    // Convert the PDF represented as a byte array into an array of Base64-encoded images.
-    string[] base64ImagesForByteArr = check pdfbox:toImagesFromBytes([your, byte, array]);
+    // Convert PDF from file path
+    string[] imagesFromFile = check pdfbox:toImagesFromFile("C://path/to/file/myfile.pdf");
+    
+    // Convert PDF from URL
+    string[] imagesFromURL = check pdfbox:toImagesFromURL("https://url/to/file/myfile.pdf");
+    
+    // Convert PDF from byte array
+    string[] imagesFromBytes = check pdfbox:toImagesFromBytes([your, byte, array]);
 }
 ```
 
-#### Extracting text from PDF documents
+### Extracting text from PDF documents
 
 ```ballerina
 import xlibb/pdfbox;
 
 public function main() returns error? {
-
-    // Extract text from the PDF located at a file path.
-    string[] base64ImagesForFilePath = check pdfbox:toTextFromFile("C://path/to/file/myfile.pdf");
-
-    // Extract text from the PDF available at a URL.
-    string[] base64ImagesForURL = check pdfbox:toTextFromURL("https://url/to/file/myfile.pdf");
-
-    // Extract text from the PDF represented as a byte array.
-    string[] base64ImagesForByteArr = check pdfbox:toTextFromBytes([your, byte, array]);
+    // Extract text from file path
+    string textFromFile = check pdfbox:toTextFromFile("C://path/to/file/myfile.pdf");
+    
+    // Extract text from URL
+    string textFromURL = check pdfbox:toTextFromURL("https://url/to/file/myfile.pdf");
+    
+    // Extract text from byte array
+    string textFromBytes = check pdfbox:toTextFromBytes([your, byte, array]);
 }
 ```
 
