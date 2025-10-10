@@ -21,6 +21,8 @@ import io.ballerina.runtime.api.utils.StringUtils;
 import io.ballerina.runtime.api.values.BArray;
 import io.ballerina.runtime.api.values.BString;
 import io.xlibb.pdfbox.utils.Utils;
+import org.apache.pdfbox.Loader;
+import org.apache.pdfbox.io.RandomAccessReadBuffer;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.rendering.ImageType;
 import org.apache.pdfbox.rendering.PDFRenderer;
@@ -32,7 +34,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
-import java.net.URL;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Base64;
@@ -52,10 +55,10 @@ public class PdfBox {
         try {
             if (isValidFile(filePath.toString())) {
                 File file = new File(filePath.toString());
-                PDDocument document = PDDocument.load(file);
-                BString[] base64Images = toImages(document);
-                document.close();
-                return ValueCreator.createArrayValue(base64Images);
+                try (PDDocument document = Loader.loadPDF(file)) {
+                    BString[] base64Images = toImages(document);
+                    return ValueCreator.createArrayValue(base64Images);
+                }
             }
             return null;
         } catch (IllegalArgumentException e) {
@@ -68,17 +71,19 @@ public class PdfBox {
     public static Object toImagesFromURL(BString url) {
         try {
             if (isValidURL(url.toString())) {
-                URL urlObj = new URL(url.toString());
-                InputStream inputStream = urlObj.openStream();
-                PDDocument document = PDDocument.load(inputStream);
-                BString[] base64Images = toImages(document);
-                document.close();
-                return ValueCreator.createArrayValue(base64Images);
+                URI uri = new URI(url.toString());
+                try (InputStream inputStream = uri.toURL().openStream()) {
+                    RandomAccessReadBuffer buffer = new RandomAccessReadBuffer(inputStream);
+                    try (PDDocument document = Loader.loadPDF(buffer)) {
+                        BString[] base64Images = toImages(document);
+                        return ValueCreator.createArrayValue(base64Images);
+                    }
+                }
             }
             return null;
         } catch (IllegalArgumentException e) {
             return Utils.getBError(e.getMessage(), e);
-        } catch (IOException e) {
+        } catch (IOException | URISyntaxException e) {
             return Utils.getBError(CORRUPTED_ERROR + url, e);
         }
     }
@@ -87,10 +92,10 @@ public class PdfBox {
         try {
             if (isValidBytes(byteArr.getBytes())) {
                 byte[] bytes = byteArr.getBytes();
-                PDDocument document = PDDocument.load(bytes);
-                BString[] base64Images = toImages(document);
-                document.close();
-                return ValueCreator.createArrayValue(base64Images);
+                try (PDDocument document = Loader.loadPDF(bytes)) {
+                    BString[] base64Images = toImages(document);
+                    return ValueCreator.createArrayValue(base64Images);
+                }
             }
             return null;
         } catch (IllegalArgumentException e) {
@@ -104,10 +109,10 @@ public class PdfBox {
         try {
             if (isValidFile(filePath.toString())) {
                 File file = new File(filePath.toString());
-                PDDocument document = PDDocument.load(file);
-                BString[] textFromPages = toText(document);
-                document.close();
-                return ValueCreator.createArrayValue(textFromPages);
+                try (PDDocument document = Loader.loadPDF(file)) {
+                    BString[] textFromPages = toText(document);
+                    return ValueCreator.createArrayValue(textFromPages);
+                }
             }
             return null;
         } catch (IllegalArgumentException e) {
@@ -120,17 +125,19 @@ public class PdfBox {
     public static Object toTextFromURL(BString url) {
         try {
             if (isValidURL(url.toString())) {
-                URL urlObj = new URL(url.toString());
-                InputStream inputStream = urlObj.openStream();
-                PDDocument document = PDDocument.load(inputStream);
-                BString[] textFromPages = toText(document);
-                document.close();
-                return ValueCreator.createArrayValue(textFromPages);
+                URI uri = new URI(url.toString());
+                try (InputStream inputStream = uri.toURL().openStream()) {
+                    RandomAccessReadBuffer buffer = new RandomAccessReadBuffer(inputStream);
+                    try (PDDocument document = Loader.loadPDF(buffer)) {
+                        BString[] textFromPages = toText(document);
+                        return ValueCreator.createArrayValue(textFromPages);
+                    }
+                }
             }
             return null;
         } catch (IllegalArgumentException e) {
             return Utils.getBError(e.getMessage(), e);
-        } catch (IOException e) {
+        } catch (IOException | URISyntaxException e) {
             return Utils.getBError(CORRUPTED_ERROR + url, e);
         }
     }
@@ -139,10 +146,10 @@ public class PdfBox {
         try {
             if (isValidBytes(byteArr.getBytes())) {
                 byte[] bytes = byteArr.getBytes();
-                PDDocument document = PDDocument.load(bytes);
-                BString[] textFromPages = toText(document);
-                document.close();
-                return ValueCreator.createArrayValue(textFromPages);
+                try (PDDocument document = Loader.loadPDF(bytes)) {
+                    BString[] textFromPages = toText(document);
+                    return ValueCreator.createArrayValue(textFromPages);
+                }
             }
             return null;
         } catch (IllegalArgumentException e) {
@@ -163,15 +170,15 @@ public class PdfBox {
             BufferedImage bImage = pdfRenderer.renderImageWithDPI(i, 400, ImageType.RGB);
             images.add(bImage);
         }
-        document.close();
+
         for (int i = 0; i < images.size(); i++) {
-            String base64Image = encodeConvertedImage(images.get(i), i);
+            String base64Image = encodeConvertedImage(images.get(i));
             encodedImages[i] = StringUtils.fromString(base64Image);
         }
         return encodedImages;
     }
 
-    private static String encodeConvertedImage(BufferedImage image, int i) throws IOException {
+    private static String encodeConvertedImage(BufferedImage image) throws IOException {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         ImageIO.write(image, "png", byteArrayOutputStream);
         byte[] bytes = byteArrayOutputStream.toByteArray();
@@ -179,7 +186,6 @@ public class PdfBox {
     }
 
     private static BString[] toText(PDDocument document) throws IOException {
-
         PDFTextStripper textStripper = new PDFTextStripper();
         int noOfPages = document.getNumberOfPages();
         BString[] textFromPages = new BString[noOfPages];
@@ -214,8 +220,8 @@ public class PdfBox {
 
     private static boolean isValidURL(String fileUrl) throws IOException {
         try {
-            URL url = new URL(fileUrl);
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            URI uri = new URI(fileUrl);
+            HttpURLConnection connection = (HttpURLConnection) uri.toURL().openConnection();
             connection.setRequestMethod("GET");
 
             if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
@@ -228,7 +234,7 @@ public class PdfBox {
             }
         } catch (IllegalArgumentException e) {
             throw new IllegalArgumentException(e.getMessage());
-        } catch (IOException e) {
+        } catch (IOException | URISyntaxException e) {
             throw new IllegalArgumentException(INVALID_URL_ERROR + fileUrl);
         }
         return true;

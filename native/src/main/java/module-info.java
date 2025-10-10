@@ -19,5 +19,6 @@ module io.xlibb.pdfbox {
     requires io.ballerina.lang;
     requires org.apache.pdfbox;
     requires java.desktop;
+    requires org.apache.pdfbox.io;
     exports io.xlibb.pdfbox;
 }
